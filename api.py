@@ -1,13 +1,12 @@
+import os
+import uvicorn
 from fastapi import FastAPI
-import ollama
 
 app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"message": "Bienvenue sur mon API IA avec Ollama et FastAPI"}
+    return {"message": "Hello, Railway!"}
 
-@app.post("/chat")
-def chat(prompt: str):
-    response = ollama.chat(model="mistral", messages=[{"role": "user", "content": prompt}])
-    return {"response": response['message']['content']}
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 8000)))
